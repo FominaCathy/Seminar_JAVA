@@ -1,33 +1,25 @@
 public class ReverseWordsInString {
 
     public static void main(String[] args) {
-        String s = "blue";
-        String tempS = "";
+        String s = "the sky  is blue ";
         String newS = "";
-        char c;
-        int lenS = s.length();
+        int count = 0;
         int i = 0;
 
-        for (i = 0; i < lenS; i++) {
-            c = s.charAt(i);
-            if (c == ' ') {
-                if (tempS != "") {
-                    if (newS == "") {
-                        newS = tempS;
-                    } else
-                        newS = tempS + " " + newS;
-                    tempS = "";
-                }
-            } else {
-                tempS = tempS + c;
+        for (i = s.length() - 1; i >= 0; i--) {
+
+            if (s.charAt(i) != ' ')
+                count++;
+            else {
+                s.substring(i + 1, i + 1 + count);
+                if ((count != 0))
+                    newS = newS + " " + s.substring(i + 1, i + 1 + count);
+                count = 0;
             }
         }
-        if (tempS != "") {
-            if (newS == "") {
-                newS = tempS;
-            } else
-                newS = tempS + " " + newS;
-        }
-        System.out.println(newS);
+        newS = newS + " " + s.substring(i + 1, i + 1 + count);
+        System.out.println(newS.trim());
+
+//
     }
 }
