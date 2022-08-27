@@ -3,7 +3,11 @@ import java.util.ArrayList;
 public class nQueenProblem {
 
     public static void main(String[] args) {
+        solveNQueens(8);
 
+    }
+
+    public static List<List<String>> solveNQueens(int n) {
         ArrayList<Integer> leftD = new ArrayList<>(); // номера занятых левых диаг (1 - (2*8+1))
         ArrayList<Integer> rightD = new ArrayList<>(); // номера занятых правых диаг ((2*8+1) - 1)
         ArrayList<ArrayList<Integer>> blockList = new ArrayList<>(2); // итого
@@ -12,23 +16,32 @@ public class nQueenProblem {
 
         ArrayList<Integer> curRes = new ArrayList<Integer>();
         combine(0, 0, blockList, curRes);
+
+        int sizeBoard = arrList.size();
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
+        for (int item : arrList) {
+            ArrayList<String> temp = new ArrayList<>();
+            for (int currCell = 0; currCell < sizeBoard; currCell++) {
+                if (currCell == item) temp.add("Q");
+                else temp.add(".");
+            }
+            result.add(temp);
+
+        return ;
+
     }
 
     public static boolean validPos(int numRow, int numCol, ArrayList<ArrayList<Integer>> check) {
-        // проверяем что диагонали не заняты
-        if ((check.get(0).indexOf(numRow + numCol) == -1) && (check.get(1).indexOf(numRow - numCol + 8) == -1)) {
-            return true;
-        }
-        return false;
+        return ((check.get(0).indexOf(numRow + numCol) == -1) && (check.get(1).indexOf(numRow - numCol + 8) == -1))
+
     }
 
     public static ArrayList<Integer> combine(int curRow, int curCol, ArrayList<ArrayList<Integer>> blockList, ArrayList<Integer> curRes) {
         if (curRes.size() == 8) {
             printList(curRes);
-            return curRes; // вернуть результат
+            return curRes;
         }
-        if (curRow == 8) // вышли за границы поля и не нашли ячейку - нужно откатить на 1 уровень
-        {// мы не можем поставить в этой колонке ферзя - то вариант неудачный.
+        if (curRow == 8) {
             int temp = curRes.remove(curRes.size() - 1);
             blockList.get(0).remove(curRes.size());
             blockList.get(1).remove(curRes.size());
@@ -48,16 +61,6 @@ public class nQueenProblem {
         return curRes;
     }
 
-    public static void printList(ArrayList<Integer> arrList) {
-        int sizeBoard = arrList.size();
-        System.out.println("Итоговая доска:");
-        for (int item : arrList) {
-            for (int currCell = 0; currCell < sizeBoard; currCell++) {
-                if (currCell == item) System.out.print(("Q") + "\t");
-                else System.out.print((".") + "\t");
-            }
-            System.out.println();
-        }
     }
 }
 
