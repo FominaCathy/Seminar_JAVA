@@ -1,42 +1,19 @@
 public class ParkingSystem {
-
-    int freeBig;
-    int freeMedium;
-    int freeSmall;
-
+    int[] freeParking = new int[3];
 
     public ParkingSystem(int big, int medium, int small) {
-        freeBig = big;
-        freeMedium = medium;
-        freeSmall = small;
+        freeParking[0] = big;
+        freeParking[1] = medium;
+        freeParking[2] = small;
     }
 
     public boolean addCar(int carType) {
-        switch (carType) {
-        case 1:
-            if (freeBig > 0) {
-                freeBig--;
-            } else {
-                return false;
-            }
-            break;
-        case 2:
-            if (freeMedium > 0) {
-                freeMedium--;
-            } else {
-                return false;
-            }
-            break;
-        case 3:
-            if (freeSmall > 0) {
-                freeSmall--;
-            } else {
-                return false;
-            }
-            break;
-        default:
+        if (freeParking[carType - 1] > 0) {
+            freeParking[carType - 1] = freeParking[carType - 1] - 1;
+        } else {
             return false;
         }
+
         return true;
     }
 
